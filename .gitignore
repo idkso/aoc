@@ -1,0 +1,6 @@
+*.o
+*.core
+*.input
+day*
+!*.c
+!*.h
