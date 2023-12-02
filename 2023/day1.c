@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 #include <ctype.h>
 
 #include "common.h"
@@ -96,42 +97,28 @@ solve2(char *line, int size)
 int
 main(void)
 {
-	int size, ans;
+	int size, ans1 = 0, ans2 = 0;
 	char *line;
 	struct file f = {0};
-	struct array arr1 = {0};
-	struct array arr2 = {0};
+	struct timespec now, l8r;
+
+	clock_gettime(CLOCK_REALTIME, &now);
 
 	read_file("day1.input", &f);
-	array_init(&arr1, 128);
-	array_init(&arr2, 128);
 
 	for (;;) {
 		read_line(&f, &line, &size);
 		if (size <= 0) {
 			break;
 		}
-		ans = solve1(line, size);
-		array_append(&arr1, ans);
-		ans = solve2(line, size);
-		array_append(&arr2, ans);
+		ans1 += solve1(line, size);
+		ans2 += solve2(line, size);
 	}
-	ans = 0;
-	for (int i = 0; i < arr1.len; i++) {
-		ans += arr1.values[i];
-	}
+	printf("answer 1: %d\n", ans1);
+	printf("answer 2: %d\n", ans2);
 
-	printf("answer 1: %d\n", ans);
-	
-	ans = 0;
-	for (int i = 0; i < arr2.len; i++) {
-		ans += arr2.values[i];
-	}
-
-	printf("answer 2: %d\n", ans);
-
-	array_deinit(&arr1);
-	array_deinit(&arr2);
 	file_deinit(&f);
+	clock_gettime(CLOCK_REALTIME, &l8r);
+	printf("took %ldns\n", l8r.tv_nsec-now.tv_nsec);
 	return 0;
 }
