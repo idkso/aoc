@@ -60,19 +60,6 @@ parse_cubes(char *line, char *ep, struct game *game)
 }
 
 int
-game_good(struct game *game)
-{
-	int out = 0;
-	printf("Game %d: %d red, %d green, %d blue\n",
-			game->num, game->red, game->green, game->blue);
-	if (game->red < 13 
-		&& game->green < 14 
-		&& game->blue < 15) out = 1;
-	printf("good: %d\n", out);
-	return out;
-}
-
-int
 solve1(char *line, int size)
 {
 	char *p;
