@@ -28,10 +28,12 @@ grab_symbols(void)
 	for (int y = 0; y < 140; y++) {
 		for (int x = 0; x < 140; x++) {
 			if (isdigit(buf[y][x]) || buf[y][x] == '.') continue;
-			s.symbols[s.nsym].value = buf[y][x];
-			s.symbols[s.nsym].x = x;
-			s.symbols[s.nsym].y = y;
-			s.symbols[s.nsym].len = 1;
+			s.symbols[s.nsym] = (struct place){
+				.value = buf[y][x],
+				.x = x,
+				.y = y,
+				.len = 1,
+			};
 			s.nsym++;
 		}
 	}
